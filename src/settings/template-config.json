@@ -1,0 +1,10 @@
+{
+    "token": "",
+    "version": "",
+    "main_server_id": "",
+    "sync_server_id": "",
+    "role_id_map": {
+        "ROLEID1MAIN": "ROLEIDSYNC",
+        "ROLEID2MAIN": "ROLEIDSYNC"
+    }
+}
