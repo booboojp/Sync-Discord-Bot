@@ -40,9 +40,9 @@ async def sync_roles(main_server, sync_server, user_id, role_id_map):
         sync_member = sync_server.get_member(user_id)
 
         if main_member is None:
-            terminal_log("DEBUG", f"User with ID {user_id} not found in Main Server.")
+            await terminal_log("DEBUG", f"User with ID {user_id} not found in Main Server.")
         if sync_member is None:
-            terminal_log("DEBUG", f"User with ID {user_id} not found in Sync Server.")
+            await terminal_log("DEBUG", f"User with ID {user_id} not found in Sync Server.")
             return
 
         sync_roles_to_remove = [role for role in sync_member.roles if role.id in role_id_map.values()]
@@ -50,9 +50,9 @@ async def sync_roles(main_server, sync_server, user_id, role_id_map):
         if sync_roles_to_remove:
             try:
                 await sync_member.remove_roles(*sync_roles_to_remove, reason="Removing sync roles.")
-                terminal_log("BOT", f"Cleared sync roles for {sync_member.name} in the Sync Server.")
+                await terminal_log("BOT", f"Cleared sync roles for {sync_member.name} in the Sync Server.")
             except discord.errors.Forbidden:
-                terminal_log("ERROR", f"Missing permissions to remove roles from {sync_member.name} in the Sync Server.")
+                await terminal_log("ERROR", f"Missing permissions to remove roles from {sync_member.name} in the Sync Server.")
 
         if main_member is None:
             return
@@ -67,10 +67,10 @@ async def sync_roles(main_server, sync_server, user_id, role_id_map):
                 if sync_role:
                     try:
                         await sync_member.add_roles(sync_role, reason="Syncing roles from the main server.")
-                        terminal_log("BOT", f"Gave {sync_member.name} the role {sync_role.name} in the Sync Server.")
+                        await terminal_log("BOT", f"Gave {sync_member.name} the role {sync_role.name} in the Sync Server.")
                     except discord.errors.Forbidden:
-                        terminal_log("ERROR", f"Missing permissions to add roles to {sync_member.name} in the Sync Server.")
+                        await terminal_log("ERROR", f"Missing permissions to add roles to {sync_member.name} in the Sync Server.")
     except Exception as e:
-        terminal_log("ERROR", f"An error occurred during role synchronization: {e}")
+        await terminal_log("ERROR", f"An error occurred during role synchronization: {e}")
     finally:
-        terminal_log("DEBUG", "Role synchronization process completed.")
+        await terminal_log("DEBUG", "Role synchronization process completed.")

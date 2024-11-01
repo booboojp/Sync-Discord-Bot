@@ -31,11 +31,8 @@ async def terminal_log(prefix, message):
     The function performs the following steps:
     1. Attempts to log the message with the given prefix using the logging module.
     2. If an exception occurs, catches the exception and prints an error message with the exception details.
-    3. Prints a completion message indicating that the function execution is completed, regardless of success or failure.
     """
     try:
         logging.info(f'[{prefix}] {message}')
     except Exception as e:
         print(f'[{prefix}] An error occurred: {e}')
-    finally:
-        print(f'[{prefix}] Execution completed')

@@ -28,10 +28,10 @@ async def clear_terminal():
     """
     try:
         os.system('cls' if os.name == 'nt' else 'clear')
-        terminal_log("SYSTEM", "Terminal cleared.")
+        await terminal_log("SYSTEM", "Terminal cleared.")
     except Exception as e:
-        terminal_log("ERROR", f"Failed to clear terminal: {e}")
+        await terminal_log("ERROR", f"Failed to clear terminal: {e}")
     finally:
-        terminal_log("SYSTEM", "clear_terminal function executed.")
+        await terminal_log("SYSTEM", "clear_terminal function executed.")
 
 __all__ = ['clear_terminal']
